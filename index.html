@@ -2,235 +2,46 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Metricraft – Playground v4</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Metricraft – Playground v5</title>
   <link rel="stylesheet" href="styles.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
-  <div class="bg-grid"></div>
   <div class="app">
-    <aside class="sidebar glass">
+    <aside class="sidebar">
       <div class="brand">
-        <img id="logo" src="assets/LogoMCOriginal.png" alt="Metricraft" />
+        <img src="assets/LogoMCOriginal.png" alt="Metricraft Logo" />
       </div>
       <nav class="nav">
-        <button class="nav-item active" data-view="overview"><span class="dot"></span>Visión General</button>
-        <button class="nav-item" data-view="ventas"><span class="dot"></span>Ventas</button>
-        <button class="nav-item" data-view="facturacion"><span class="dot"></span>Facturación</button>
-        <button class="nav-item" data-view="inventario"><span class="dot"></span>Inventario</button>
-        <button class="nav-item" data-view="productos"><span class="dot"></span>Productos</button>
-        <button class="nav-item" data-view="alertas"><span class="dot"></span>Alertas</button>
+        <button class="nav-item active" data-view="overview">📈 Visión General</button>
+        <button class="nav-item" data-view="ventas">💳 Ventas</button>
+        <button class="nav-item" data-view="facturacion">🧾 Facturación</button>
+        <button class="nav-item" data-view="inventario">📦 Inventario</button>
+        <button class="nav-item" data-view="productos">🏷️ Productos</button>
+        <button class="nav-item" data-view="alertas">🔔 Alertas</button>
       </nav>
-
-      <div class="panel mini">
-        <div class="row between">
-          <span class="muted">Tema</span>
-          <label class="switch">
-            <input id="darkToggle" type="checkbox" checked>
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="row between mt8">
-          <span class="muted">Animaciones</span>
-          <label class="switch">
-            <input id="animToggle" type="checkbox" checked>
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="row between mt8">
-          <span class="muted">Colores</span>
-          <select id="palette" class="tiny">
-            <option value="brand">Brand</option>
-            <option value="violet">Violeta</option>
-            <option value="atoll">Blue Atoll</option>
-          </select>
-        </div>
-      </div>
-      <div class="foot muted">© <span id="year"></span> Metricraft</div>
     </aside>
 
     <main class="content">
-      <header class="toolbar glass">
+      <header class="toolbar">
         <div class="filters">
-          <div class="filter">
-            <label>Rango</label>
-            <div class="inline">
-              <input type="date" id="fromDate">
-              <span>—</span>
-              <input type="date" id="toDate">
-            </div>
-            <div class="chips">
-              <button class="chip" data-range="7">7d</button>
-              <button class="chip" data-range="30">30d</button>
-              <button class="chip" data-range="90">90d</button>
-              <button class="chip" data-range="ytd">YTD</button>
-            </div>
-          </div>
-          <div class="filter">
-            <label>Canal</label>
-            <select id="channel">
-              <option value="all">Todos</option>
-              <option>Retail</option>
-              <option>E-commerce</option>
-            </select>
-          </div>
-          <div class="filter">
-            <label>Región</label>
-            <select id="region">
-              <option value="all">Todas</option>
-              <option>Norte</option>
-              <option>Centro</option>
-              <option>Sur</option>
-            </select>
-          </div>
-          <div class="filter">
-            <label>Moneda</label>
-            <select id="currency">
-              <option value="USD">USD</option>
-              <option value="COP">COP</option>
-              <option value="EUR">EUR</option>
-            </select>
-          </div>
-          <div class="filter">
-            <label>Visual</label>
-            <select id="vizStyle">
-              <option value="modern">Moderno</option>
-              <option value="minimal">Minimal</option>
-              <option value="contrast">Alto contraste</option>
-            </select>
-          </div>
-          <button id="applyFilters" class="primary">Aplicar</button>
+          <select id="channel"><option value="all">Todos</option><option>Retail</option><option>E-commerce</option></select>
+          <select id="region"><option value="all">Todas</option><option>Norte</option><option>Centro</option><option>Sur</option></select>
+          <select id="currency"><option value="USD">USD</option><option value="COP">COP</option></select>
+          <button id="applyFilters">Aplicar</button>
         </div>
       </header>
 
       <section id="kpis" class="grid kpis"></section>
 
       <section id="overview" class="grid panels view active">
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Ingresos</h3>
-            <div class="panel-actions">
-              <select id="revenueType" class="tiny">
-                <option value="area">Área</option>
-                <option value="line">Línea</option>
-                <option value="bar">Barras</option>
-                <option value="stacked">Apilado</option>
-                <option value="mixed">Mixto</option>
-              </select>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="revenueChart"></canvas>
-            <div id="revenueFallback" class="fallback"></div>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Top productos</h3>
-            <div class="hint">Clic para ver tendencia</div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="topProductsChart"></canvas>
-            <div id="topProductsFallback" class="fallback"></div>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Inventario</h3>
-            <div class="panel-actions">
-              <select id="invType" class="tiny">
-                <option value="doughnut">Dona</option>
-                <option value="polarArea">Polar</option>
-                <option value="radar">Radar</option>
-              </select>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="inventoryChart"></canvas>
-            <div id="inventoryFallback" class="fallback"></div>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Antigüedad de cartera</h3>
-            <div class="panel-actions">
-              <select id="agingType" class="tiny">
-                <option value="pie">Pie</option>
-                <option value="doughnut">Dona</option>
-                <option value="bar">Barras</option>
-              </select>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="agingChart"></canvas>
-            <div id="agingFallback" class="fallback"></div>
-          </div>
-        </div>
-        <div class="panel wide">
-          <div class="panel-head">
-            <h3>Tendencia del producto seleccionado</h3>
-            <div class="muted" id="selectedProductLabel">—</div>
-          </div>
-          <div class="chart-wrap wide">
-            <canvas id="productTrendChart"></canvas>
-          </div>
-        </div>
+        <div class="panel"><canvas id="revenueChart"></canvas></div>
+        <div class="panel"><canvas id="topProductsChart"></canvas></div>
+        <div class="panel"><canvas id="inventoryChart"></canvas></div>
+        <div class="panel"><canvas id="agingChart"></canvas></div>
       </section>
-
-      <section id="ventas" class="view">
-        <div class="table-wrap">
-          <div class="row between">
-            <h3>Órdenes de venta</h3>
-            <input id="salesSearch" class="search" placeholder="Buscar producto / SKU..." />
-          </div>
-          <table id="salesTable"></table>
-        </div>
-      </section>
-
-      <section id="facturacion" class="view">
-        <div class="table-wrap">
-          <div class="row between">
-            <h3>Facturas</h3>
-            <input id="invSearch" class="search" placeholder="Buscar cliente / estado..." />
-          </div>
-          <table id="invoicesTable"></table>
-        </div>
-      </section>
-
-      <section id="inventario" class="view">
-        <div class="table-wrap">
-          <div class="row between">
-            <h3>Niveles de inventario</h3>
-            <div class="legend">
-              <span class="pill ok">OK</span>
-              <span class="pill low">Bajo</span>
-              <span class="pill out">Stockout</span>
-            </div>
-          </div>
-          <table id="inventoryTable"></table>
-        </div>
-      </section>
-
-      <section id="productos" class="view">
-        <div class="table-wrap">
-          <h3>Catálogo de productos</h3>
-          <table id="productsTable"></table>
-        </div>
-      </section>
-
-      <section id="alertas" class="view">
-        <div class="alerts" id="alerts"></div>
-      </section>
-
-      <footer class="footer muted">
-        <span>© <span id="year2"></span> Metricraft · Playground v4</span>
-      </footer>
     </main>
   </div>
 </body>
