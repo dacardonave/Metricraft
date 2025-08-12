@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-  <title>Metricraft – Playground v4 (Responsive)</title>
+  <title>Metricraft – Playground v4 (Responsive + Secciones)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -113,6 +113,7 @@
 
       <section id="kpis" class="grid kpis"></section>
 
+      <!-- Overview -->
       <section id="overview" class="grid panels view active">
         <div class="panel">
           <div class="panel-head">
@@ -127,20 +128,11 @@
               </select>
             </div>
           </div>
-          <div class="chart-wrap">
-            <canvas id="revenueChart"></canvas>
-            <div id="revenueFallback" class="fallback"></div>
-          </div>
+          <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
         </div>
         <div class="panel">
-          <div class="panel-head">
-            <h3>Top productos</h3>
-            <div class="hint hide-sm">Toca una barra para ver tendencia</div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="topProductsChart"></canvas>
-            <div id="topProductsFallback" class="fallback"></div>
-          </div>
+          <div class="panel-head"><h3>Top productos</h3><div class="hint hide-sm">Clic o toque para ver tendencia</div></div>
+          <div class="chart-wrap"><canvas id="topProductsChart"></canvas></div>
         </div>
         <div class="panel">
           <div class="panel-head">
@@ -153,10 +145,7 @@
               </select>
             </div>
           </div>
-          <div class="chart-wrap">
-            <canvas id="inventoryChart"></canvas>
-            <div id="inventoryFallback" class="fallback"></div>
-          </div>
+          <div class="chart-wrap"><canvas id="inventoryChart"></canvas></div>
         </div>
         <div class="panel">
           <div class="panel-head">
@@ -169,23 +158,39 @@
               </select>
             </div>
           </div>
-          <div class="chart-wrap">
-            <canvas id="agingChart"></canvas>
-            <div id="agingFallback" class="fallback"></div>
-          </div>
+          <div class="chart-wrap"><canvas id="agingChart"></canvas></div>
         </div>
         <div class="panel wide">
-          <div class="panel-head">
-            <h3>Tendencia del producto seleccionado</h3>
-            <div class="muted" id="selectedProductLabel">—</div>
-          </div>
-          <div class="chart-wrap wide">
-            <canvas id="productTrendChart"></canvas>
-          </div>
+          <div class="panel-head"><h3>Tendencia del producto seleccionado</h3><div class="muted" id="selectedProductLabel">—</div></div>
+          <div class="chart-wrap wide"><canvas id="productTrendChart"></canvas></div>
         </div>
       </section>
 
+      <!-- Ventas -->
       <section id="ventas" class="view">
+        <div class="grid panels">
+          <div class="panel">
+            <div class="panel-head"><h3>Ventas por canal</h3>
+          <div class="panel">
+            <div class="panel-head"><h3>Ticket promedio (AOV)</h3></div>
+            <div class="chart-wrap"><canvas id="salesAOV"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>% Mix por canal</h3><div class="hint hide-sm">Distribución porcentual</div></div>
+            <div class="chart-wrap"><canvas id="salesChannelMix"></canvas></div>
+          </div>
+</div>
+            <div class="chart-wrap"><canvas id="salesByChannel"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Ventas por región</h3></div>
+            <div class="chart-wrap"><canvas id="salesByRegion"></canvas></div>
+          </div>
+          <div class="panel wide">
+            <div class="panel-head"><h3>Tendencia de ventas</h3></div>
+            <div class="chart-wrap wide"><canvas id="salesTrend"></canvas></div>
+          </div>
+        </div>
         <div class="table-wrap">
           <div class="row between">
             <h3>Órdenes de venta</h3>
@@ -195,7 +200,31 @@
         </div>
       </section>
 
+      <!-- Facturación -->
       <section id="facturacion" class="view">
+        <div class="grid panels">
+          <div class="panel">
+            <div class="panel-head"><h3>Estado de facturación</h3>
+          <div class="panel">
+            <div class="panel-head"><h3>DSO (días cartera)</h3></div>
+            <div class="chart-wrap"><canvas id="invoiceDSOTrend"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Monto vencido</h3></div>
+            <div class="chart-wrap"><canvas id="invoiceOverdue"></canvas></div>
+          </div>
+</div>
+            <div class="chart-wrap"><canvas id="invoiceStatus"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Antigüedad (buckets)</h3></div>
+            <div class="chart-wrap"><canvas id="invoiceAging"></canvas></div>
+          </div>
+          <div class="panel wide">
+            <div class="panel-head"><h3>Ingresos facturados por día</h3></div>
+            <div class="chart-wrap wide"><canvas id="invoicedTrend"></canvas></div>
+          </div>
+        </div>
         <div class="table-wrap">
           <div class="row between">
             <h3>Facturas</h3>
@@ -205,21 +234,57 @@
         </div>
       </section>
 
+      <!-- Inventario -->
       <section id="inventario" class="view">
+        <div class="grid panels">
+          <div class="panel">
+            <div class="panel-head"><h3>Estado de stock</h3>
+          <div class="panel wide">
+            <div class="panel-head"><h3>Días de inventario (DOH) por producto</h3></div>
+            <div class="chart-wrap wide"><canvas id="inventoryDOH"></canvas></div>
+          </div>
+</div>
+            <div class="chart-wrap"><canvas id="stockStatus"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Stock por producto</h3></div>
+            <div class="chart-wrap"><canvas id="stockByProduct"></canvas></div>
+          </div>
+          <div class="panel wide">
+            <div class="panel-head"><h3>Rotación estimada</h3></div>
+            <div class="chart-wrap wide"><canvas id="inventoryTurnsTrend"></canvas></div>
+          </div>
+        </div>
         <div class="table-wrap">
           <div class="row between">
             <h3>Niveles de inventario</h3>
-            <div class="legend hide-sm">
-              <span class="pill ok">OK</span>
-              <span class="pill low">Bajo</span>
-              <span class="pill out">Stockout</span>
-            </div>
+            <div class="legend hide-sm"><span class="pill ok">OK</span><span class="pill low">Bajo</span><span class="pill out">Stockout</span></div>
           </div>
           <div class="table-scroller"><table id="inventoryTable"></table></div>
         </div>
       </section>
 
+      <!-- Productos -->
       <section id="productos" class="view">
+        <div class="grid panels">
+          <div class="panel">
+            <div class="panel-head"><h3>Top 10 productos por ingresos</h3>
+          <div class="panel wide">
+            <div class="panel-head"><h3>Margen % por producto</h3></div>
+            <div class="chart-wrap wide"><canvas id="prodMarginPct"></canvas></div>
+          </div>
+</div>
+            <div class="chart-wrap"><canvas id="prodTopRevenue"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Top 10 más rentables</h3></div>
+            <div class="chart-wrap"><canvas id="prodTopProfit"></canvas></div>
+          </div>
+          <div class="panel wide">
+            <div class="panel-head"><h3>Menos vendidos (unidades)</h3></div>
+            <div class="chart-wrap wide"><canvas id="prodLeastUnits"></canvas></div>
+          </div>
+        </div>
         <div class="table-wrap">
           <h3>Catálogo de productos</h3>
           <div class="table-scroller"><table id="productsTable"></table></div>
@@ -231,7 +296,7 @@
       </section>
 
       <footer class="footer muted">
-        <span>© <span id="year2"></span> Metricraft · Playground v4 (Responsive)</span>
+        <span>© <span id="year2"></span> Metricraft · Playground v4 (Responsive + Secciones)</span>
       </footer>
     </main>
   </div>
