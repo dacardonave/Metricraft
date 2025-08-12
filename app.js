@@ -305,7 +305,7 @@ function renderTable(id, headers, rows){
 // Alerts
 function renderAlerts(){
   const rows = slice();
-  const lowMargin = rows.filter(r => (r.revenue - r.cost)/r.revenue < 0.1);
+  const lowMargin = rows.filter(r => r.revenue > 0 && (r.revenue - r.cost)/r.revenue < 0.1);
   const stockouts = state.inventory.filter(i=>i.status==='Stockout');
   const overdue = state.invoices.filter(i=>i.status==='Vencida');
   const items = [];
